@@ -1,17 +1,41 @@
 const data = [
-  { crop: "Beans", price: "800 RWF/kg" },
-  { crop: "Maize", price: "500 RWF/kg" },
-  { crop: "Rice", price: "1200 RWF/kg" },
-  { crop: "Potatoes", price: "400 RWF/kg" }
+  { crop: "Beans", price: 800 },
+  { crop: "Maize", price: 500 },
+  { crop: "Rice", price: 1200 },
+  { crop: "Potatoes", price: 400 }
 ];
 
 const list = document.getElementById("priceList");
+const noResults = document.getElementById("noResults");
+
+function getTag(price) {
+  if (price <= 500) return "low";
+  if (price <= 900) return "medium";
+  return "high";
+}
 
 function display(items) {
   list.innerHTML = "";
+
+  if (items.length === 0) {
+    noResults.style.display = "block";
+    return;
+  } else {
+    noResults.style.display = "none";
+  }
+
   items.forEach(item => {
     const li = document.createElement("li");
-    li.textContent = item.crop + " - " + item.price;
+
+    const tagClass = getTag(item.price);
+
+    li.innerHTML = `
+      ${item.crop} - ${item.price} RWF/kg
+      <span class="tag ${tagClass}">
+        ${tagClass.toUpperCase()}
+      </span>
+    `;
+
     list.appendChild(li);
   });
 }
