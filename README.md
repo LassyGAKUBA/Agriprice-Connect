@@ -10,7 +10,7 @@ Many small-scale farmers in Rwanda and across Africa do not have access to curre
 
 ---
 
-## 👥 Target Users
+## Target Users
 
 * Smallholder farmers
 * Local market traders
