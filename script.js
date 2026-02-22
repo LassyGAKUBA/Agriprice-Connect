@@ -2,7 +2,8 @@ const data = [
   { crop: "Beans", price: 800 },
   { crop: "Maize", price: 500 },
   { crop: "Rice", price: 1200 },
-  { crop: "Potatoes", price: 400 }
+  { crop: "Potatoes", price: 700 },
+  { crop: "Rice", price: 1000 },
 ];
 
 const list = document.getElementById("priceList");
