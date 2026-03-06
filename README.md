@@ -56,6 +56,15 @@ agri-price-connect/
 
 ---
 
+## Docker Usage
+
+### Build Image
+```bash
+docker build -t agriprice-app .
+```
+
+---
+
 ##  Team Members
 
 * **Lassy Gakuba** :Backend & Devops Engineer
