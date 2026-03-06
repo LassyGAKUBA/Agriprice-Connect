@@ -27,7 +27,9 @@ jobs:
         run: echo "Basic test successful"
 
       - name: Check if Dockerfile exists
-        run: if [ -f Dockerfile ]; then
-            docker build -t crop-price-tracker .
-            else echo "Dockerfile not found yet, skipping build"
+        run: | 
+            if [ -f Dockerfile ]; then
+             docker build -t crop-price-tracker .
+            else
+             echo "Dockerfile not found yet, skipping build"
              fi
