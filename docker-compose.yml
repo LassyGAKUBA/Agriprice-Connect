@@ -1,0 +1,37 @@
+version: "3.9"
+
+services:
+
+  app:
+    build: .
+    container_name: agriprice-app
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=db
+      - DB_PORT=5432
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+    networks:
+      - agriprice-network
+
+  db:
+    image: postgres:15-alpine
+    container_name: agriprice-db
+    environment:
+      POSTGRES_USER: agriprice
+      POSTGRES_PASSWORD: agriprice
+      POSTGRES_DB: agriprice_db
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - agriprice-network
+
+volumes:
+  db-data:
+
+networks:
+  agriprice-network:
