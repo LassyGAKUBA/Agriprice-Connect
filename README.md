@@ -79,3 +79,5 @@ docker build -t agriprice-app .
 * Farmer account system
 
 ---
+
+CI pipeline demonstration run 2
