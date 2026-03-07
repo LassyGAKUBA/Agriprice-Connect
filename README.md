@@ -82,6 +82,7 @@ The application will be accessible at:
 
 http://localhost:3000
 
+CI demonstration run
 
 ##  Team Members
 
