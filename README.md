@@ -65,6 +65,24 @@ docker build -t agriprice-app .
 
 ---
 
+## Running the Application with Docker Compose
+
+To start the Agriprice Connect application locally:
+
+```bash
+docker-compose up --build
+```
+
+This will start:
+
+* The application container
+* A PostgreSQL database container
+
+The application will be accessible at:
+
+http://localhost:3000
+
+
 ##  Team Members
 
 * **Lassy Gakuba** :Backend & Devops Engineer
