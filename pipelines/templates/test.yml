@@ -1,0 +1,8 @@
+name: Test Step
+
+runs:
+  using: "composite"
+  steps:
+    - name: Run tests
+      run: echo "No tests yet"
+      shell: bash
