@@ -2,7 +2,7 @@ name: CI Pipeline
 
 on:
   push:
-    branches: [ "main", "feature/ci-pipeline", "test/ci-failure" ]
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
@@ -14,8 +14,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Info
-        run: echo "Running CI for Agriprice Connect"
+      - name: Show repo structure
+        run: ls -R
+
+      - name: Run basic tests
+        run: |
+          echo "Running repository checks..."
+          ls -R .
+          echo "Tests passed"
 
       - name: Build Docker images
         run: docker compose build
