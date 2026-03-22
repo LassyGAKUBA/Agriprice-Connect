@@ -1,0 +1,24 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Show repo structure
+        run: ls -R
+
+      - name: Build Docker images
+        run: docker compose build
+
+      - name: Verify build success
+        run: echo "Docker build completed successfully"

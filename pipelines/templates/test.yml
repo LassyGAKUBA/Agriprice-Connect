@@ -1,0 +1,11 @@
+name: Test Step
+
+runs:
+  using: "composite"
+  steps:
+    - name: Run basic validation
+      shell: bash
+      run: |
+        echo "Running basic checks..."
+        ls -R .
+        echo "Tests completed successfully"

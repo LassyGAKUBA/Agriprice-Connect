@@ -1,37 +1,45 @@
-version: "3.9"
+version: "3.8"
 
 services:
 
-  app:
-    build: .
-    container_name: agriprice-app
+  frontend:
+    build: ./frontend
+    container_name: agriprice-frontend
     ports:
       - "3000:3000"
-    environment:
-      - NODE_ENV=development
-      - DB_HOST=db
-      - DB_PORT=5432
     depends_on:
-      - db
-    volumes:
-      - .:/app
+      - backend
+    environment:
+      - REACT_APP_API_URL=http://backend:5000
     networks:
       - agriprice-network
 
-  db:
-    image: postgres:15-alpine
-    container_name: agriprice-db
+  backend:
+    build: ./backend
+    container_name: agriprice-backend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo
     environment:
-      POSTGRES_USER: agriprice
-      POSTGRES_PASSWORD: agriprice
-      POSTGRES_DB: agriprice_db
+      - MONGO_URI=mongodb://mongo:27017/agriprice
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - ./backend:/app
+    networks:
+      - agriprice-network
+
+  mongo:
+    image: mongo:6
+    container_name: agriprice-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
     networks:
       - agriprice-network
 
 volumes:
-  db-data:
+  mongo-data:
 
 networks:
   agriprice-network:
