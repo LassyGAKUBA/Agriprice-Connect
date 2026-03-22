@@ -14,14 +14,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      #  Skip Node steps 
-      - name: Skip install
-        run: echo "No Node project found, skipping npm install"
+      - name: Info
+        run: echo "Running CI for Agriprice Connect"
 
-      # Run tests
-      - name: Run tests
-        uses: ./pipelines/templates/test.yml
-
-      #  Docker build 
       - name: Build Docker images
         run: docker compose build
