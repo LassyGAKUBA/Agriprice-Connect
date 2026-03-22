@@ -17,11 +17,8 @@ jobs:
       - name: Show repo structure
         run: ls -R
 
-      - name: Run basic tests
-        run: |
-          echo "Running repository checks..."
-          ls -R .
-          echo "Tests passed"
-
       - name: Build Docker images
         run: docker compose build
+
+      - name: Verify build success
+        run: echo "Docker build completed successfully"
