@@ -20,20 +20,21 @@ jobs:
           node-version: 20
 
       # 🔹 Backend
-      - name: Backend - Install dependencies
+      - name: Install backend dependencies
         working-directory: ./backend
         run: npm install
 
-      - name: Backend - Run tests (Template)
+      - name: Backend test (Template)
         uses: ./pipelines/templates/test.yml
 
       # 🔹 Frontend
-      - name: Frontend - Install dependencies
+      - name: Install frontend dependencies
         working-directory: ./frontend
         run: npm install
 
-      - name: Frontend - Build (Template)
-        uses: ./pipelines/templates/build.yml
+      - name: Build frontend
+        working-directory: ./frontend
+        run: npm run build
 
       # 🔹 Docker
       - name: Build Docker images
