@@ -14,23 +14,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
+      #  Skip Node steps 
+      - name: Skip install
+        run: echo "No Node project found, skipping npm install"
 
-      # Install dependencies 
-      - name: Install dependencies
-        run: npm install
-
-      #  Run tests 
+      # Run tests
       - name: Run tests
         uses: ./pipelines/templates/test.yml
 
-      # Build project
-      - name: Build project
-        run: npm run build || echo "No build step"
-
-      # Docker
+      #  Docker build 
       - name: Build Docker images
         run: docker compose build
