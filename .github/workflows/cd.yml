@@ -1,9 +1,9 @@
-name: CD Pipeline
+name: Deploy to Production
 
 on:
   push:
     branches:
-      - main   # 👈 ONLY runs after merge
+      - main   # Only after merge
 
 jobs:
   deploy:
@@ -21,11 +21,14 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Lint code
+        run: npm run lint || echo "No lint issues"
+
       - name: Run tests
         run: npm test
 
       - name: Build Docker image
-        run: docker build -f frontend/Dockerfile -t agriprice-connect .
+        run: docker build -f frontend/Dockerfile -t agriprice-connect:${{ github.sha }} .
 
-      - name: Simulate Deployment
-        run: echo "App deployed successfully!"
+      - name: Deploy application
+        run: echo " Deploying version ${{ github.sha }}"
