@@ -9,32 +9,17 @@ on:
       - main
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  setup:
+    uses: ./.github/workflows/setup.yml
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+  test:
+    needs: setup
+    uses: ./.github/workflows/test.yml
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
+  docker:
+    needs: test
+    uses: ./.github/workflows/docker.yml
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Lint code
-        run: echo "Lint passed"
-
-      - name: Run tests
-        run: npm test
-
-      - name: Build Docker image
-        run: docker build -f frontend/Dockerfile -t agriprice-connect .
-
-      - name: Scan Docker image with Trivy
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: agriprice-connect
-          severity: CRITICAL
+  security:
+    needs: docker
+    uses: ./.github/workflows/security.yml
