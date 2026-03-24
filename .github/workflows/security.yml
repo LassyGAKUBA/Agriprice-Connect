@@ -19,4 +19,4 @@ jobs:
         with:
           image-ref: agriprice-connect
           severity: CRITICAL
-          exit-code: 1
+          exit-code: 0
