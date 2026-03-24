@@ -2,23 +2,24 @@ name: CI Pipeline
 
 on:
   push:
-    branches: [ "main" ]
+    branches-ignore:
+      - main
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  setup:
+    uses: ./.github/workflows/setup.yml
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+  test:
+    needs: setup
+    uses: ./.github/workflows/test.yml
 
-      - name: Show repo structure
-        run: ls -R
+  docker:
+    needs: test
+    uses: ./.github/workflows/docker.yml
 
-      - name: Build Docker images
-        run: docker compose build
-
-      - name: Verify build success
-        run: echo "Docker build completed successfully"
+  security:
+    needs: docker
+    uses: ./.github/workflows/security.yml

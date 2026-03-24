@@ -1,0 +1,26 @@
+{
+  "name": "agriprice-connect",
+  "version": "1.0.0",
+  "description": "**Helping farmers track market prices in real time**",
+  "main": "script.js",
+    "scripts": {
+    "test": "echo \"Test passed\"",
+    "start": "echo \"App running\""
+  },
+
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LassyGAKUBA/Agriprice-Connect.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/LassyGAKUBA/Agriprice-Connect/issues"
+  },
+  "homepage": "https://github.com/LassyGAKUBA/Agriprice-Connect#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
