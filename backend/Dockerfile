@@ -1,9 +1,28 @@
-FROM alpine:3.18
+FROM node:20-alpine AS builder
 
 WORKDIR /app
 
+COPY package*.json ./
+
+RUN npm ci
+
 COPY . .
 
-RUN echo "Backend container built successfully"
+FROM node:20-alpine AS production
 
-CMD ["sh", "-c", "echo Backend running"]
+WORKDIR /app
+
+ENV NODE_ENV=production
+
+COPY package*.json ./
+
+RUN npm ci --only=production
+
+COPY --from=builder /app .
+
+EXPOSE 3000
+
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+USER appuser
+
+CMD ["node", "server.js"]
