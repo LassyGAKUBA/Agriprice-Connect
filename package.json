@@ -3,11 +3,10 @@
   "version": "1.0.0",
   "description": "**Helping farmers track market prices in real time**",
   "main": "script.js",
-    "scripts": {
+  "scripts": {
     "test": "echo \"Test passed\"",
     "start": "echo \"App running\""
   },
-
   "repository": {
     "type": "git",
     "url": "git+https://github.com/LassyGAKUBA/Agriprice-Connect.git"
@@ -22,5 +21,8 @@
   "homepage": "https://github.com/LassyGAKUBA/Agriprice-Connect#readme",
   "dependencies": {
     "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "eslint": "^10.1.0"
   }
 }
