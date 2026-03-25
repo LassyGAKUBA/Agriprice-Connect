@@ -6,7 +6,7 @@ services:
     build: ./frontend
     container_name: agriprice-frontend
     ports:
-      - "3000:3000"
+      - "3000:80"
     depends_on:
       - backend
     environment:
