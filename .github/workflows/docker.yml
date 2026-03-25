@@ -10,5 +10,5 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build Docker image (no cache)
-        run: docker build --no-cache -f frontend/Dockerfile -t agriprice-connect .
+      - name: Build Docker image 
+        run: docker build --no-cache -t agriprice-connect ./frontend
