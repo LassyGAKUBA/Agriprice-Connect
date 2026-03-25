@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [
   { "crop": "Beans", "price": "800 RWF/kg" },
   { "crop": "Maize", "price": "500 RWF/kg" },
@@ -5,3 +6,12 @@
   { "crop": "Potatoes", "price": "700 RWF/kg" },
   { "crop": "Tomatoes", "price": "1000 RWF/kg" },
 ]
+=======
+[
+  { "crop": "Beans", "price": "800 RWF/kg" },
+  { "crop": "Maize", "price": "500 RWF/kg" },
+  { "crop": "Rice", "price": "1200 RWF/kg" },
+  { "crop": "Potatoes", "price": "700 RWF/kg" },
+  { "crop": "Tomatoes", "price": "1000 RWF/kg" },
+]
+>>>>>>> 24482f2 (feat: initial clean deploy with working backend and port fixes)
