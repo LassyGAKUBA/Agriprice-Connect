@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # AgriPrice Connect 
 
 **Helping farmers track market prices in real time**
@@ -100,3 +101,105 @@ CI demonstration run
 ---
 
 CI pipeline test run 2
+=======
+# AgriPrice Connect 
+
+**Helping farmers track market prices in real time**
+
+---
+
+## Problem Statement
+
+Many small-scale farmers in Rwanda and across Africa do not have access to current market prices. This leads to unfair pricing and loss of income when selling their produce.
+
+---
+
+## Target Users
+
+* Smallholder farmers
+* Local market traders
+* Agricultural cooperatives
+
+---
+
+##  Core Features
+
+* View current crop prices (Beans, Maize, Rice, Potatoes)
+* Search/filter crops
+* Mobile-friendly design
+* Last updated timestamp
+
+---
+
+## Technology Stack
+
+* HTML
+* CSS
+* JavaScript
+
+---
+
+## How to Run the App
+
+1. Clone the repository:
+2. Open the folder
+3. Double click `index.html` OR open with Live Server
+
+---
+
+## Project Structure
+
+
+agri-price-connect/
+│
+├── index.html
+├── style.css
+├── script.js
+└── data.json
+
+
+---
+
+## Docker Usage
+
+### Build Image
+```bash
+docker build -t agriprice-app .
+```
+
+---
+
+## Running the Application with Docker Compose
+
+To start the Agriprice Connect application locally:
+
+```bash
+docker-compose up --build
+```
+
+This will start:
+
+* The application container
+* A PostgreSQL database container
+
+The application will be accessible at:
+
+http://localhost:3000
+
+CI demonstration run
+
+##  Team Members
+
+* **Lassy Gakuba** :Backend & Devops Engineer
+* **Irielle Irakoze** :Frontend Developer 
+* **Louis Marie Toussaint Tona** :Data Logic
+
+---
+
+##  Future Improvements
+
+* API integration for real-time prices
+* Farmer account system
+
+---
+>>>>>>> 24482f2 (feat: initial clean deploy with working backend and port fixes)

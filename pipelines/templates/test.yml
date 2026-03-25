@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 name: Test Step
 
 runs:
@@ -8,4 +9,16 @@ runs:
       run: |
         echo "Running basic checks..."
         ls -R .
+=======
+name: Test Step
+
+runs:
+  using: "composite"
+  steps:
+    - name: Run basic validation
+      shell: bash
+      run: |
+        echo "Running basic checks..."
+        ls -R .
+>>>>>>> 24482f2 (feat: initial clean deploy with working backend and port fixes)
         echo "Tests completed successfully"

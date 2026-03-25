@@ -1,2 +1,7 @@
+<<<<<<< HEAD
 # Every code change needs to be reviewed by the team
 * @LassyGAKUBA @IrielleIrakoze @LouisTona
+=======
+# Every code change needs to be reviewed by the team
+* @LassyGAKUBA @IrielleIrakoze @LouisTona
+>>>>>>> 24482f2 (feat: initial clean deploy with working backend and port fixes)

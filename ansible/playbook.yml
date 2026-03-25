@@ -1,0 +1,27 @@
+- name: Final Configure Agriprice VM
+  hosts: app
+  become: yes
+
+  tasks:
+    - name: Install Modern Docker and Compose V2
+      apt:
+        name: [docker.io, docker-compose-v2]
+        state: present
+
+    - name: Ensure fixed docker-compose is in place
+      copy:
+        src: ../docker-compose.yml
+        dest: /home/azureuser/app/docker-compose.yml
+        force: yes
+
+    - name: Hard Reset Docker (Remove old containers and images)
+      shell: |
+        docker compose down --rmi all
+      args:
+        chdir: /home/azureuser/app
+      ignore_errors: yes
+
+    - name: Run Docker Compose (Modern V2)
+      shell: docker compose up -d --build
+      args:
+        chdir: /home/azureuser/app
