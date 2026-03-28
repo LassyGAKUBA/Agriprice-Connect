@@ -92,9 +92,8 @@ async function loadCrops() {
   if (!data?.success) {
     grid.innerHTML = `
       <div class="error-state">
-        <div class="error-icon">⚠️</div>
+        <div class="error-icon"></div>
         <h3>Cannot connect to server</h3>
-        <p>Make sure the backend is running:<br><code>node server.js</code></p>
       </div>`;
     return;
   }

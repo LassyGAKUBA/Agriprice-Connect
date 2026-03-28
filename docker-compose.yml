@@ -28,7 +28,7 @@ services:
     depends_on:
       - mongo
     ports:
-      - "3000:3000"
+      - "5000:5000"
     volumes:
       - ./backend:/app
     networks:
