@@ -14,7 +14,7 @@ services:
     depends_on:
       - backend
     networks:
-      - agriprice_network
+      - agriprice-network
 
   backend:
     build:
@@ -51,4 +51,4 @@ volumes:
 
 networks:
   agriprice-network:
-  driver: bridge
+    driver: bridge
