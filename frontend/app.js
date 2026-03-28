@@ -1,4 +1,4 @@
-const API = '/api';
+const API = "http://20.197.28.110:3000";
 
 let allCrops = [];
 let currentFilters = { search: '', category: 'all', region: 'all', sort: 'name' };
