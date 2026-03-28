@@ -68,6 +68,6 @@ jobs:
           ssh-keyscan -H ${{ secrets.HOST }} >> ~/.ssh/known_hosts
 
       - name: Deploy with Ansible
-        run: ansible-playbook -i inventory.ini deploy.yml
+        run: ansible-playbook -i ansible/inventory.ini ansible/playbook.yml
 
       
