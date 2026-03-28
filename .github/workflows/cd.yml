@@ -3,7 +3,7 @@ name: Deploy to Production
 on:
   push:
     branches: [main]
-    workflow_dispatch:
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -27,16 +27,26 @@ jobs:
       - name: Set image tag
         run: echo "IMAGE_TAG=${{ github.sha }}" >> $GITHUB_ENV
 
-      - name: Build Docker image
-        run: docker build --no-cache -t agriprice-connect:$IMAGE_TAG ./frontend
+      - name: Build Frontend Image
+        run: docker build --no-cache -f frontend/Dockerfile -t agriprice-frontend:$IMAGE_TAG frontend/
+
+      - name: Build Backend Image
+        run: docker build --no-cache -f backend/Dockerfile -t agriprice-backend:$IMAGE_TAG backend/
 
 
-      - name: Scan Docker image
+      - name: Scan Frontend Image
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: agriprice-connect:${{ env.IMAGE_TAG }}
-          severity: CRITICAL
-          exit-code: '0'   # allow pass but still scan
+             image-ref: agriprice-frontend:${{ env.IMAGE_TAG }}
+             severity: CRITICAL
+             exit-code: '0'
+
+      - name: Scan Backend Image
+        uses: aquasecurity/trivy-action@master
+        with:
+            image-ref: agriprice-backend:${{ env.IMAGE_TAG }}
+            severity: CRITICAL
+            exit-code: '0'
 
       - name: Run tfsec
         uses: aquasecurity/tfsec-action@v1.0.0
@@ -59,3 +69,5 @@ jobs:
 
       - name: Deploy with Ansible
         run: ansible-playbook -i inventory.ini deploy.yml
+
+      
