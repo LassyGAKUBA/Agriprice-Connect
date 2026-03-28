@@ -4,9 +4,8 @@ services:
 
   frontend:
     build:
-      context: .
-      dockerfile: ./frontend/Dockerfile
-      target: production
+      context: ./frontend
+      dockerfile: Dockerfile
     container_name: agriprice_frontend
     restart: unless-stopped
     ports:
@@ -14,13 +13,12 @@ services:
     depends_on:
       - backend
     networks:
-      - agriprice_network
+      - agriprice-network
 
   backend:
     build:
       context: ./backend
-      dockerfile: ./backend/Dockerfile
-      target: production
+      dockerfile: Dockerfile
     container_name: agriprice_backend
     restart: unless-stopped
     environment:
@@ -51,4 +49,4 @@ volumes:
 
 networks:
   agriprice-network:
-  driver: bridge
+    driver: bridge
