@@ -10,5 +10,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build Docker image 
-        run: docker build --no-cache -t agriprice-connect ./frontend
+
+      - name: Build Frontend Image
+        run: docker build --no-cache -f frontend/Dockerfile -t agriprice-frontend:$IMAGE_TAG frontend/
+
+      - name: Build Backend Image
+        run: docker build --no-cache -f backend/Dockerfile -t agriprice-backend:$IMAGE_TAG backend/

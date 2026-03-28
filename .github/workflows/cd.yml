@@ -27,8 +27,11 @@ jobs:
       - name: Set image tag
         run: echo "IMAGE_TAG=${{ github.sha }}" >> $GITHUB_ENV
 
-      - name: Build Docker image
-        run: docker build --no-cache -t agriprice-connect:$IMAGE_TAG ./frontend
+      - name: Build Frontend Image
+        run: docker build --no-cache -f frontend/Dockerfile -t agriprice-frontend:$IMAGE_TAG frontend/
+
+      - name: Build Backend Image
+        run: docker build --no-cache -f backend/Dockerfile -t agriprice-backend:$IMAGE_TAG backend/
 
 
       - name: Scan Docker image
