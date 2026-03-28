@@ -10,7 +10,6 @@ app.use((req, res, next) => {
   next();
 });
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '../frontend')));
 
 let crops = [
   { id: 1,  name: "Maize",         kinyarwanda: "Ibigori",      category: "Cereals",    price: 350,  unit: "kg",    market: "Kimironko", region: "Kigali", trend: "up",    change: 5.2  },
