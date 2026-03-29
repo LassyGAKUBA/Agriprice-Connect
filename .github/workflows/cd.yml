@@ -3,7 +3,6 @@ name: Deploy to Production
 on:
   push:
     branches: [main]
-  
 
 jobs:
   deploy:
@@ -27,26 +26,36 @@ jobs:
       - name: Set image tag
         run: echo "IMAGE_TAG=${{ github.sha }}" >> $GITHUB_ENV
 
+      - name: Login to ACR
+        run: echo "${{ secrets.ACR_PASSWORD }}" | docker login ${{ secrets.ACR_LOGIN_SERVER }} -u ${{ secrets.ACR_USERNAME }} --password-stdin
+
       - name: Build Frontend Image
-        run: docker build --no-cache -f frontend/Dockerfile -t agriprice-frontend:$IMAGE_TAG frontend/
+        run: |
+          docker build --no-cache -f frontend/Dockerfile \
+          -t ${{ secrets.ACR_LOGIN_SERVER }}/agriprice-frontend:${{ env.IMAGE_TAG }} \
+          -t ${{ secrets.ACR_LOGIN_SERVER }}/agriprice-frontend:latest \
+          frontend/
 
       - name: Build Backend Image
-        run: docker build --no-cache -f backend/Dockerfile -t agriprice-backend:$IMAGE_TAG backend/
-
+        run: |
+          docker build --no-cache -f backend/Dockerfile \
+          -t ${{ secrets.ACR_LOGIN_SERVER }}/agriprice-backend:${{ env.IMAGE_TAG }} \
+          -t ${{ secrets.ACR_LOGIN_SERVER }}/agriprice-backend:latest \
+          backend/
 
       - name: Scan Frontend Image
         uses: aquasecurity/trivy-action@master
         with:
-             image-ref: agriprice-frontend:${{ env.IMAGE_TAG }}
-             severity: CRITICAL
-             exit-code: '0'
+          image-ref: ${{ secrets.ACR_LOGIN_SERVER }}/agriprice-frontend:${{ env.IMAGE_TAG }}
+          severity: CRITICAL
+          exit-code: '0'
 
       - name: Scan Backend Image
         uses: aquasecurity/trivy-action@master
         with:
-            image-ref: agriprice-backend:${{ env.IMAGE_TAG }}
-            severity: CRITICAL
-            exit-code: '0'
+          image-ref: ${{ secrets.ACR_LOGIN_SERVER }}/agriprice-backend:${{ env.IMAGE_TAG }}
+          severity: CRITICAL
+          exit-code: '0'
 
       - name: Run tfsec
         uses: aquasecurity/tfsec-action@v1.0.0
@@ -54,20 +63,28 @@ jobs:
           working_directory: terraform/
           soft_fail: false
 
-      - name: Push Docker image (simulated)
-        run: echo "Pushing agriprice-connect:$IMAGE_TAG to registry..."
+      - name: Push images to ACR
+        run: |
+          docker push ${{ secrets.ACR_LOGIN_SERVER }}/agriprice-frontend:${{ env.IMAGE_TAG }}
+          docker push ${{ secrets.ACR_LOGIN_SERVER }}/agriprice-frontend:latest
+          docker push ${{ secrets.ACR_LOGIN_SERVER }}/agriprice-backend:${{ env.IMAGE_TAG }}
+          docker push ${{ secrets.ACR_LOGIN_SERVER }}/agriprice-backend:latest
 
       - name: Install Ansible
         run: sudo apt-get update && sudo apt-get install -y ansible
 
       - name: Setup SSH
         run: |
-         mkdir -p ~/.ssh
-         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa_azure
-         chmod 600 ~/.ssh/id_rsa_azure
-         ssh-keyscan -H ${{ secrets.HOST }} >> ~/.ssh/known_hosts
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa_azure
+          chmod 600 ~/.ssh/id_rsa_azure
+          ssh-keyscan -H ${{ secrets.HOST }} >> ~/.ssh/known_hosts
 
       - name: Deploy with Ansible
         run: ansible-playbook -i ansible/inventory.ini ansible/playbook.yml
+        env:
+        ACR_LOGIN_SERVER: ${{ secrets.ACR_LOGIN_SERVER }}
+        ACR_USERNAME: ${{ secrets.ACR_USERNAME }}
+        ACR_PASSWORD: ${{ secrets.ACR_PASSWORD }}
 
       
