@@ -83,8 +83,8 @@ jobs:
       - name: Deploy with Ansible
         run: ansible-playbook -i ansible/inventory.ini ansible/playbook.yml
         env:
-        ACR_LOGIN_SERVER: ${{ secrets.ACR_LOGIN_SERVER }}
-        ACR_USERNAME: ${{ secrets.ACR_USERNAME }}
-        ACR_PASSWORD: ${{ secrets.ACR_PASSWORD }}
+         ACR_LOGIN_SERVER: ${{ secrets.ACR_LOGIN_SERVER }}
+         ACR_USERNAME: ${{ secrets.ACR_USERNAME }}
+         ACR_PASSWORD: ${{ secrets.ACR_PASSWORD }}
 
       
