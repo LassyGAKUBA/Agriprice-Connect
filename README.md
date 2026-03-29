@@ -168,3 +168,9 @@ Code → Tested → Scanned → Built → Stored → Deployed → Running
 ```
 
 > All without manual intervention.
+
+---
+
+## 9. Full Automation Demo
+
+**Demo Video**: [Link](https://drive.google.com/file/d/1-lo4UCwmn2TZyBgezkJvCq7QCXEXB973/view?usp=sharing)
