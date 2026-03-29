@@ -20,7 +20,7 @@ RUN npm ci --only=production
 
 COPY --from=builder /app .
 
-EXPOSE 3000
+EXPOSE 5000
 
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 USER appuser
