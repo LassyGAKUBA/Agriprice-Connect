@@ -140,7 +140,26 @@ This will:
 
 ---
 
-## 6. Summary
+## 6. Live Application Links
+
+| Service | URL |
+|---|---|
+| **Frontend** | [http://20.197.28.110:80/](http://20.197.28.110:80/) |
+| **Backend API** | [http://20.197.28.110:5000/](http://20.197.28.110:5000/) |
+
+---
+
+## 7. Project Collaborators
+
+| Name | Main Task |
+|---|---|
+| **Lassy Gakuba** | Infrastructure & Cloud Provisioning (Terraform/Azure) |
+| **Irielle Irakoze** | CI/CD Pipeline & Security Scanning |
+| **Louis Marie T. Tona** | Application Development (Frontend & Backend) |
+
+---
+
+## 8. Summary
 
 AgriPrice Connect implements a complete end-to-end DevSecOps pipeline, where:
 
