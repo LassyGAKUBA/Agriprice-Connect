@@ -1,11 +1,7 @@
-version: "3.8"
-
 services:
 
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
+    image: agripriceacr.azurecr.io/agriprice-frontend:latest
     container_name: agriprice_frontend
     restart: unless-stopped
     ports:
@@ -16,21 +12,17 @@ services:
       - agriprice-network
 
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
+    image: agripriceacr.azurecr.io/agriprice-backend:latest
     container_name: agriprice_backend
     restart: unless-stopped
     environment:
       NODE_ENV: production
-      PORT: 3000
+      PORT: 5000
       MONGODB_URI: mongodb://mongo:27017/agriprice
     depends_on:
       - mongo
     ports:
       - "5000:5000"
-    volumes:
-      - ./backend:/app
     networks:
       - agriprice-network
 
