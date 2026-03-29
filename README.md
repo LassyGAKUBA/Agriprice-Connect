@@ -1,205 +1,40 @@
-<<<<<<< HEAD
-# AgriPrice Connect 
+System Architecture & Operations
 
-**Helping farmers track market prices in real time**
+AgriPrice Connect is built on a modern DevSecOps stack, ensuring that every code change is scanned for security before being automatically deployed to our Azure cloud infrastructure.
 
----
+1. High-Level Architecture
+Frontend: A containerized Nginx server hosting our HTML/CSS/JS web application.
 
-## Problem Statement
+Backend: A Node.js/Express API handling crop price logic and data retrieval.
 
-Many small-scale farmers in Rwanda and across Africa do not have access to current market prices. This leads to unfair pricing and loss of income when selling their produce.
+Infrastructure: An Azure Virtual Machine provisioned via Terraform within a dedicated Virtual Network (VNet).
 
----
+Security: Network Security Groups (NSG) restrict traffic to Port 80 (Web) and Port 22 (SSH from authorized IPs).
 
-## Target Users
+2. The "Git-to-Production" Pipeline
+Our automation strategy follows a "Shift Left" security approach:
 
-* Smallholder farmers
-* Local market traders
-* Agricultural cooperatives
+Continuous Integration (CI): * Triggered on every Pull Request to main.
 
----
+Trivy scans our Docker images for OS-level vulnerabilities.
 
-##  Core Features
+tfsec scans our Terraform files to ensure our Azure cloud configuration is secure.
 
-* View current crop prices (Beans, Maize, Rice, Potatoes)
-* Search/filter crops
-* Mobile-friendly design
-* Last updated timestamp
+The build fails if any CRITICAL vulnerabilities are detected.
 
----
+Continuous Deployment (CD):
 
-## Technology Stack
+Triggered only upon a successful merge to the main branch.
 
-* HTML
-* CSS
-* JavaScript
+The pipeline builds the production Docker images and pushes them to our Private Azure Container Registry (ACR).
 
----
+Ansible is then triggered to SSH into the Azure VM, pull the latest images from the ACR, and restart the services using Docker Compose.
 
-## How to Run the App
+3. How to Deploy (Operations)
+To replicate this environment:
 
-1. Clone the repository:
-2. Open the folder
-3. Double click `index.html` OR open with Live Server
+Infrastructure: Navigate to /terraform and run terraform init followed by terraform apply.
 
----
+Configuration: Use the /ansible playbook to install Docker on the target VM.
 
-## Project Structure
-
-
-agri-price-connect/
-│
-├── index.html
-├── style.css
-├── script.js
-└── data.json
-
-
----
-
-## Docker Usage
-
-### Build Image
-```bash
-docker build -t agriprice-app .
-```
-
----
-
-## Running the Application with Docker Compose
-
-To start the Agriprice Connect application locally:
-
-```bash
-docker-compose up --build
-```
-
-This will start:
-
-* The application container
-* A PostgreSQL database container
-
-The application will be accessible at:
-
-http://localhost:3000
-
-CI demonstration run
-
-##  Team Members
-
-* **Lassy Gakuba** :Backend & Devops Engineer
-* **Irielle Irakoze** :Frontend Developer 
-* **Louis Marie Toussaint Tona** :Data Logic
-
----
-
-##  Future Improvements
-
-* API integration for real-time prices
-* Farmer account system
-
----
-
-CI pipeline test run 2
-=======
-# AgriPrice Connect 
-
-**Helping farmers track market prices in real time**
-
----
-
-## Problem Statement
-
-Many small-scale farmers in Rwanda and across Africa do not have access to current market prices. This leads to unfair pricing and loss of income when selling their produce.
-
----
-
-## Target Users
-
-* Smallholder farmers
-* Local market traders
-* Agricultural cooperatives
-
----
-
-##  Core Features
-
-* View current crop prices (Beans, Maize, Rice, Potatoes)
-* Search/filter crops
-* Mobile-friendly design
-* Last updated timestamp
-
----
-
-## Technology Stack
-
-* HTML
-* CSS
-* JavaScript
-
----
-
-## How to Run the App
-
-1. Clone the repository:
-2. Open the folder
-3. Double click `index.html` OR open with Live Server
-
----
-
-## Project Structure
-
-
-agri-price-connect/
-│
-├── index.html
-├── style.css
-├── script.js
-└── data.json
-
-
----
-
-## Docker Usage
-
-### Build Image
-```bash
-docker build -t agriprice-app .
-```
-
----
-
-## Running the Application with Docker Compose
-
-To start the Agriprice Connect application locally:
-
-```bash
-docker-compose up --build
-```
-
-This will start:
-
-* The application container
-* A PostgreSQL database container
-
-The application will be accessible at:
-
-http://localhost:3000
-
-CI demonstration run
-
-##  Team Members
-
-* **Lassy Gakuba** :Backend & Devops Engineer
-* **Irielle Irakoze** :Frontend Developer 
-* **Louis Marie Toussaint Tona** :Data Logic
-
----
-
-##  Future Improvements
-
-* API integration for real-time prices
-* Farmer account system
-
----
->>>>>>> 24482f2 (feat: initial clean deploy with working backend and port fixes)
+Application: Push code changes to a feature branch and open a PR to see the DevSecOps scans in action.
