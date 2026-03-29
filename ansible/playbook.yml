@@ -27,6 +27,9 @@
         chdir: /home/azureuser/app
       ignore_errors: yes
 
+    - name: Remove existing mongo container if stuck
+      shell: docker rm -f agriprice-mongo || true
+
     - name: Pull latest images from ACR
       shell: docker compose pull
       args:
