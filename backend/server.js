@@ -135,5 +135,5 @@ app.post('/api/crops/:id/price', (req, res) => {
   res.json({ success: true, data: crop });
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`AgriPrice Connect API running on http://localhost:${PORT}`));
